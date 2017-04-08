@@ -1,0 +1,39 @@
+{
+  "apiVersion": "v1",
+  "kind": "Namespace",
+  "metadata": {
+    "name": "sock-shop",
+    "namespace": ""
+  },
+  "spec": {
+    "finalizers": [
+      "kubernetes"
+    ]
+  }
+}
+{
+  "apiVersion": "v1",
+  "kind": "Namespace",
+  "metadata": {
+    "name": "stackpoint-system",
+    "namespace": ""
+  },
+  "spec": {
+    "finalizers": [
+      "kubernetes"
+    ]
+  }
+}
+{
+  "apiVersion": "v1",
+  "kind": "Namespace",
+  "metadata": {
+    "name": "zipkin",
+    "namespace": ""
+  },
+  "spec": {
+    "finalizers": [
+      "kubernetes"
+    ]
+  }
+}
