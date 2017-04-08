@@ -22,6 +22,8 @@ jq '.items[] |
     )' > ./cluster-dump/ns.json
     
     
+#For each of these namespaces, dump all services, controllers (rc,ds,replicaset,etc), secrets and daemonsets to a file on disk. Strip any non-portable fields from the objects. If you wish to migrate additional controller resource types (replicasets, deployments, etc), make sure to add them to the resource type list:   
+    
 for ns in $(jq -r '.metadata.name' < ./cluster-dump/ns.json);do
     echo "Namespace: $ns"
     kubectl --namespace="${ns}" get --export -o=json svc,rc,secrets,ds | \
