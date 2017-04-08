@@ -7,6 +7,7 @@ This document's primary purpose is to show how to migrate the deployment state f
 
 *mkdir ./cluster-dump*
 
+First, get a list of all namespaces that are not kube-system or default and record them to a file on disk. This represents the list of namespaces that we want to migrate:
 
 *kubectl get --export -o=json ns | \
 jq '.items[] |
@@ -21,7 +22,7 @@ jq '.items[] |
     )' > ./cluster-dump/ns.json*
     
     
-# For each of these namespaces, dump all services, controllers (rc,ds,replicaset,etc), secrets and daemonsets to a file on disk. Strip any non-portable fields from the objects. If you wish to migrate additional controller resource types (replicasets, deployments, etc), make sure to add them to the resource type list:   
+For each of these namespaces, dump all services, controllers (rc,ds,replicaset,etc), secrets and daemonsets to a file on disk. Strip any non-portable fields from the objects. If you wish to migrate additional controller resource types (replicasets, deployments, etc), make sure to add them to the resource type list:   
     
 *for ns in $(jq -r '.metadata.name' < ./cluster-dump/ns.json);do
     echo "Namespace: $ns"
@@ -56,3 +57,6 @@ Restore the resource state:
 
 *kubectl create -f cluster-dump/cluster-dump.json*
 
+
+
+*Ref* : https://coreos.com/kubernetes/docs/latest/cluster-dump-restore.html
